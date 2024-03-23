@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class SettingController : MonoBehaviour
 {
+    [SerializeField] private Animator canvasAnimation;
+    [SerializeField] private GameObject settingsCanvas;
+    [SerializeField] private GameObject buttonSettings;
     [SerializeField] private ShootingController shootingController;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private ZombieController zombieController;
-    [SerializeField] private Animator canvasAnimation;
 
     private int healthPointSettings = 100;
     [SerializeField] private Slider healthBarSlider;
@@ -81,10 +83,18 @@ public class SettingController : MonoBehaviour
 
     public void SettingsExit()
     {
-        Time.timeScale = 1;
+        StartCoroutine(PauseOff(0.4f));
         canvasAnimation.Play("SettingsExit");
+        Time.timeScale = 1;
     }
 
+    public IEnumerator PauseOff(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        settingsCanvas.SetActive(false); // Отключить текущий объект
+        buttonSettings.SetActive(true);
+
+    }
 
     private void UpdateDamagePlayer()
     {
@@ -181,7 +191,7 @@ public class SettingController : MonoBehaviour
 
         healthZombieText.text = healthZombieSettings.ToString();
         PlayerPrefs.SetInt("ZombieHealth", healthZombieSettings);
-        zombieController.ApplyHealthSettings();
+        zombieController.ApplyZombiesSettings();
     }
 
     private void UpdateDamageZombie()

@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
     public int ReturnDamage()
     {
+        ApplyDamageSettings();
         return damagePower;
     }
 

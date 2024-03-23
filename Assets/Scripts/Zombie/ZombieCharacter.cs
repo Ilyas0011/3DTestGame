@@ -44,12 +44,17 @@ public class ZombieCharacter : MonoBehaviour
         moveSpeed = zombieController.ReturnSpeed();
     }
 
+    public void ApplyHealthPoint()
+    {
+        healthPoints = zombieController.ReturnHealthPoint();
+        healthBar.value = healthPoints;
+    }
+
     void Start()
     {
         ApplyDamageAmount();
         ApplyMoveSpeed();
-        healthPoints = zombieController.ReturnHealthPoint();
-        healthBar.value = healthPoints;
+        ApplyHealthPoint();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }

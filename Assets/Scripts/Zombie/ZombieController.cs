@@ -21,37 +21,47 @@ public class ZombieController : MonoBehaviour
     private void Start()
     {
         ApplyHealthSettings();
-        damageAmount = PlayerPrefs.GetInt("DamageZombieAmount", 10);
-        moveSpeed = PlayerPrefs.GetFloat("SpeedZombie", 3f);
+        ApplyDamageSettings();
+        ApplyMoveSpeedSettings();
     }
 
     public int ReturnDamageAmount()
     {
-        damageAmount = PlayerPrefs.GetInt("DamageZombieAmount", 10);
+        ApplyDamageSettings();
         return damageAmount;
     }
 
     public float ReturnSpeed()
     {
-        moveSpeed = PlayerPrefs.GetFloat("SpeedZombie", 3f);
+        ApplyMoveSpeedSettings();
         return moveSpeed;
     }
 
     public void ApplyZombiesSettings()
     {
-        damageAmount = PlayerPrefs.GetInt("DamageZombieAmount", 10);
-        moveSpeed = PlayerPrefs.GetFloat("SpeedZombie", 3f);
         foreach (GameObject zombie in zombieList)
         {
             zombie.GetComponent<ZombieCharacter>().ApplyDamageAmount();
             zombie.GetComponent<ZombieCharacter>().ApplyMoveSpeed();
+            zombie.GetComponent<ZombieCharacter>().ApplyHealthPoint();
         }
     }
 
 
     public int ReturnHealthPoint()
     {
+        ApplyHealthSettings();
         return healthPoint;
+    }
+
+    public void ApplyDamageSettings()
+    {
+        damageAmount = PlayerPrefs.GetInt("DamageZombieAmount", 10);
+    }
+
+    public void ApplyMoveSpeedSettings()
+    {
+        moveSpeed = PlayerPrefs.GetFloat("SpeedZombie", 3f);
     }
 
     public void ApplyHealthSettings()
