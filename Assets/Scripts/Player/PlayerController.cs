@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool deathPlayer = false;
     void Start()
     {
+        Application.targetFrameRate = 60;
         ApplyHealthSettings();
         ApplyDamageSettings();
         ApplyMoveSpeed();
